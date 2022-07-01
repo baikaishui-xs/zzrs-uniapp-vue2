@@ -1,0 +1,23 @@
+{
+  "pages": [{
+    "path": "pages/index/index",
+    "style": {
+      "navigationBarTitleText": "uni-app"
+    }
+  }],
+  "subPackages": [ // 分包配置项
+    {
+      "root": "subpkg", // 分包所在目录
+      "pages": [] // 当前分包中的页面
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8",
+    "app-plus": {
+      "background": "#efeff4"
+    }
+  }
+}
