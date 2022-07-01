@@ -1,16 +1,70 @@
 {
   "pages": [{
-    "path": "pages/index/index",
+    "path": "pages/home/home",
     "style": {
-      "navigationBarTitleText": "uni-app"
+      "navigationBarTitleText": "郑郑日上"
+    }
+  },
+  {
+    "path": "pages/category/category",
+    "style": {
+      "navigationBarTitleText": "",
+      "enablePullDownRefresh": false
+    }  
+  },
+  {
+    "path": "pages/cart/cart",
+    "style": {
+      "navigationBarTitleText": "",
+      "enablePullDownRefresh": false
+    }
+  },
+  {
+    "path": "pages/my/my",
+    "style": {
+      "navigationBarTitleText": "",
+      "enablePullDownRefresh": false
     }
   }],
-  "subPackages": [ // 分包配置项
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/home/home", // 点击跳转的页面路径
+      "text": "首页", // 标题
+      "iconPath": "static/icons/home-off.png", // 未选中状态 的图标路径
+      "selectedIconPath": "static/icons/home-on.png" // 已选中状态 的图标路径
+    },
     {
-      "root": "subpkg", // 分包所在目录
-      "pages": [] // 当前分包中的页面
-    }
-  ],
+      "pagePath": "pages/category/category",
+      "text": "分类",
+      "iconPath": "static/icons/category-off.png",
+      "selectedIconPath": "static/icons/category-on.png"
+    },
+    {
+      "pagePath": "pages/cart/cart",
+      "text": "购物车",
+      "iconPath": "static/icons/cart-off.png",
+      "selectedIconPath": "static/icons/cart-on.png"
+    },
+    {
+      "pagePath": "pages/my/my",
+      "text": "我的",
+      "iconPath": "static/icons/my-off.png",
+      "selectedIconPath": "static/icons/my-on.png"
+    }],
+    "color": "#787876",
+    "selectedColor": "#E74E4A"
+  },
+  "subPackages": [{  // 分包配置项
+    "root": "subpkg", // 分包所在目录
+    "pages": [{ // 当前分包中的页面
+      "path": "goods_all-list/goods_all-list",
+      "style": {
+        "navigationBarTitleText": "所有商品",
+        "enablePullDownRefresh": false,
+        "onReachBottomDistance": 150 // 上拉触底距离
+      }
+    }]
+  }],
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",

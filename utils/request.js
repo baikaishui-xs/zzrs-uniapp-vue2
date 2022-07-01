@@ -5,6 +5,7 @@ import {
 $http.baseUrl = 'https://api.it120.cc/zcr' // 请求根路径
 
 $http.beforeRequest = function(request) { // 请求拦截器
+  request.header['content-type'] = 'application/x-www-form-urlencoded',
   uni.showLoading({ // 展示 loading 效果
     title: '数据加载中...'
   })
