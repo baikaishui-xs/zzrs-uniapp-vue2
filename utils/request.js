@@ -23,9 +23,8 @@ $http.afterRequest = function(response) { // 响应拦截器
   if (response.data.msg === '暂无数据') {
     return
   }
-  Message.error(response.data.msg)
-  // 把异步API执行失败的结果传递出去
-  return Promise.reject(response.data.msg)
+  
+  return uni.$showMsg(response.data.msg) // 把异步API执行失败的结果传递出去
 }
 
 uni.$showMsg = function(title = '数据请求失败！', duration = 1500) { // 封装 uni.showToast。作用：简化请求失败处理逻辑

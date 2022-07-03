@@ -1,7 +1,7 @@
 <template>
   <view class="home-container">
     <!-- 搜索 区 -->
-    <view class="search-area">
+    <view class="search-area" @click="goAllGoodsSearchPage">
       <uni-icons type="search" size="20"></uni-icons>
       <text class="search-area-text">搜索</text>
     </view>
@@ -94,6 +94,11 @@
       goAllGoodsListPage() { // 前往 所有商品列表页
         uni.navigateTo( {
           url: '/subpkg/goods_all-list/goods_all-list'
+        } )
+      },
+      goAllGoodsSearchPage() { // 前往 所有商品列表页
+        uni.navigateTo( {
+          url: '/subpkg/goods_search/goods_search'
         } )
       }
     }

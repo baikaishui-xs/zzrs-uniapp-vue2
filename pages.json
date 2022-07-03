@@ -63,7 +63,16 @@
         "enablePullDownRefresh": false,
         "onReachBottomDistance": 150 // 上拉触底距离
       }
-    }]
+    }    ,{
+                    "path" : "goods_search/goods_search",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
   }],
   "globalStyle": {
     "navigationBarTextStyle": "black",
