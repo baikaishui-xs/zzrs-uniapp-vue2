@@ -30,7 +30,7 @@
 	import messages from './i18n/index.js'
 	const {
 		t
-	} = initVueI18n(messages)
+	} = initVueI18n( messages )
 
 	/**
 	 * SearchBar 搜索栏
@@ -59,12 +59,12 @@
 	 */
 
 	export default {
-		name: "UniSearchBar",
+		name: 'UniSearchBar',
 		emits: ['input', 'update:modelValue', 'clear', 'cancel', 'confirm', 'blur', 'focus'],
 		props: {
 			placeholder: {
 				type: String,
-				default: ""
+				default: ''
 			},
 			radius: {
 				type: [Number, String],
@@ -72,11 +72,11 @@
 			},
 			clearButton: {
 				type: String,
-				default: "auto"
+				default: 'auto'
 			},
 			cancelButton: {
 				type: String,
-				default: "auto"
+				default: 'auto'
 			},
 			cancelText: {
 				type: String,
@@ -84,7 +84,7 @@
 			},
 			bgColor: {
 				type: String,
-				default: "#F8F8F8"
+				default: '#F8F8F8'
 			},
 			maxlength: {
 				type: [Number, String],
@@ -92,11 +92,11 @@
 			},
 			value: {
 				type: [Number, String],
-				default: ""
+				default: ''
 			},
 			modelValue: {
 				type: [Number, String],
-				default: ""
+				default: ''
 			},
 			focus: {
 				type: Boolean,
@@ -109,26 +109,26 @@
 		},
 		data() {
 			return {
-				show: false,
-				showSync: false,
+				show: true,
+				showSync: true,
 				searchVal: ''
 			}
 		},
 		computed: {
 			cancelTextI18n() {
-				return this.cancelText || t("uni-search-bar.cancel")
+				return this.cancelText || t( 'uni-search-bar.cancel' )
 			},
 			placeholderText() {
-				return this.placeholder || t("uni-search-bar.placeholder")
+				return this.placeholder || t( 'uni-search-bar.placeholder' )
 			}
 		},
 		watch: {
 			// #ifndef VUE3
 			value: {
 				immediate: true,
-				handler(newVal) {
+				handler( newVal ) {
 					this.searchVal = newVal
-					if (newVal) {
+					if ( newVal ) {
 						this.show = true
 					}
 				}
@@ -137,9 +137,9 @@
 			// #ifdef VUE3
 			modelValue: {
 				immediate: true,
-				handler(newVal) {
+				handler( newVal ) {
 					this.searchVal = newVal
-					if (newVal) {
+					if ( newVal ) {
 						this.show = true
 					}
 				}
@@ -147,46 +147,46 @@
 			// #endif
 			focus: {
 				immediate: true,
-				handler(newVal) {
-					if (newVal) {
-						if(this.readonly) return
+				handler( newVal ) {
+					if ( newVal ) {
+						if( this.readonly ) return
 						this.show = true;
-						this.$nextTick(() => {
+						this.$nextTick( () => {
 							this.showSync = true
-						})
+						} )
 					}
 				}
 			},
-			searchVal(newVal, oldVal) {
-				this.$emit("input", newVal)
+			searchVal( newVal, oldVal ) {
+				this.$emit( 'input', newVal )
 				// #ifdef VUE3
-				this.$emit("update:modelValue", newVal)
+				this.$emit( 'update:modelValue', newVal )
 				// #endif
 			}
 		},
 		methods: {
 			searchClick() {
-				if(this.readonly) return
-				if (this.show) {
+				if( this.readonly ) return
+				if ( this.show ) {
 					return
 				}
 				this.show = true;
-				this.$nextTick(() => {
+				this.$nextTick( () => {
 					this.showSync = true
-				})
+				} )
 			},
 			clear() {
-				this.$emit("clear", {
+				this.$emit( 'clear', {
 					value: this.searchVal
-				})
-				this.searchVal = ""
+				} )
+				this.searchVal = ''
 			},
 			cancel() {
-				if(this.readonly) return
-				this.$emit("cancel", {
+				if( this.readonly ) return
+				this.$emit( 'cancel', {
 					value: this.searchVal
-				});
-				this.searchVal = ""
+				} );
+				this.searchVal = ''
 				this.show = false
 				this.showSync = false
 				// #ifndef APP-PLUS
@@ -203,9 +203,9 @@
 				// #ifdef APP-PLUS
 				plus.key.hideSoftKeybord()
 				// #endif
-				this.$emit("confirm", {
+				this.$emit( 'confirm', {
 					value: this.searchVal
-				})
+				} )
 			},
 			blur() {
 				// #ifndef APP-PLUS
@@ -214,12 +214,12 @@
 				// #ifdef APP-PLUS
 				plus.key.hideSoftKeybord()
 				// #endif
-				this.$emit("blur", {
+				this.$emit( 'blur', {
 					value: this.searchVal
-				})
+				} )
 			},
-			emitFocus(e) {
-				this.$emit("focus", e.detail)
+			emitFocus( e ) {
+				this.$emit( 'focus', e.detail )
 			}
 		}
 	};

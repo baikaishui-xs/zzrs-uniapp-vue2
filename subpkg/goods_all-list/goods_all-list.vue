@@ -30,16 +30,26 @@
       };
     },
     methods: {
-      async getAllGoodsList() { // 获取 所有商品列表
+      async getAllGoodsList( cb ) { // 获取 所有商品列表
         const result = await getAllGoodsList( this.getAllGoodsField )
         this.getAllGoodsField.total = result.data.data.totalRow
         this.allGoodsList = [...this.allGoodsList, ...result.data.data.result]
+        cb && cb() // 关闭 下拉刷新动画 // 解决页面第一次加载没有传递 cb 方法的问题
       }
     },
     onReachBottom() { // 触底事件
       if ( this.getAllGoodsField.page * this.getAllGoodsField.pageSize >= this.getAllGoodsField.total ) return uni.$showMsg( '已经没有更多商品了' ) // 判断 是否还有下一条数据
       this.getAllGoodsField.page++
       this.getAllGoodsList()
+    },
+    onPullDownRefresh() { // 下拉刷新事件
+      this.getAllGoodsField = { // 重置字段
+        page: 1,
+        pageSize: 10,
+        total: 0,
+      },
+      
+      this.getAllGoodsList( () => uni.stopPullDownRefresh() ) // 重新发起请求，并传递一个 关闭下拉刷新动画 的方法
     }
   }
 </script>

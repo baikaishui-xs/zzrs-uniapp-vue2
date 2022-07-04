@@ -61,6 +61,9 @@
       padding: 10px;
       border-radius: 3px;
       background: #fff;
+      .exit {
+        text-align: center;
+      }
     }
   }
 </style>
