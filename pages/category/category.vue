@@ -4,7 +4,7 @@
       <view :class="['item', i === activeIndex ? 'active' : '']" @click="activeChanged(i, item.id)" v-for="(item, i) in goodsCategory" :key="item.id">{{item.name}}</view>
     </scroll-view>
     <scroll-view class="scroll-view-right" scroll-y="true" :style="{height: wh + 'px'}">
-      <view class="item" v-for="item in goodsList" :key="item.id">
+      <view class="item" v-for="item in goodsList" :key="item.id" @click="goGoodsInfo(item.id)">
         <image class="img" :src="item.pic"></image>
         <view class="info-box">
           <view class="name">{{item.name}}</view>
@@ -48,6 +48,11 @@
       async getAllGoodsList() { // 获取 商品列表
         const result = await getAllGoodsList( { categoryId: this.categoryID } )
         this.goodsList = result.data.data.result
+      },
+      goGoodsInfo(goodsID) {
+        uni.navigateTo({
+          url: '/subpkg/goods_info/goods_info?id=' + goodsID
+        })
       }
     },
   }
