@@ -28,11 +28,14 @@
   
     <!-- 详情页 区 -->
     <rich-text class="details-pages-area" :nodes="goodsInfo.content"></rich-text>
+    
+    <!-- 商品导航 -->
+    <uni-goods-nav :fill="true" :options="options" :buttonGroup="buttonGroup" @click="leftBottom" @buttonClick="rightBottom" />
   </view>
 </template>
 
 <script>
-  import { getGoodsInfo } from '@/api/mallModule.js'
+  import { getGoodsInfo, addShopCart } from '@/api/mallModule.js'
   export default {
     onLoad( pageParameter ) {
       this.id = pageParameter.id
@@ -41,7 +44,25 @@
     data() {
       return {
         id: 0, // 商品ID
-        goodsInfo: {} // 商品信息
+        goodsInfo: {}, // 商品信息
+        options: [{ // 左侧按钮组的配置对象
+          icon: 'shop',
+          text: '店铺'
+        }, {
+          icon: 'cart',
+          text: '购物车',
+          info: this.$store.state.user.shopCartInfo.number
+        }],
+        buttonGroup: [{ // 右侧按钮组的配置对象
+          text: '加入购物车',
+          backgroundColor: '#ff0000',
+          color: '#fff'
+        },
+        {
+          text: '立即购买',
+          backgroundColor: '#ffa200',
+          color: '#fff'
+        }]
       }
     },
     methods: {
@@ -49,11 +70,36 @@
         const result = await getGoodsInfo( this.id )
         this.goodsInfo = result.data.data
       },
+      async addShopCart() { // 加入购物车
+        await addShopCart( {
+          goodsId: this.id,
+          number: 1
+        } )
+        await this.$store.dispatch( 'user/getShopCartInfo' )
+        this.options[1].info = this.$store.state.user.shopCartInfo.number
+      },
       preview( i ) { // 轮播图预览
         uni.previewImage( {
           current: i, // 预览时，默认显示的图片索引
           urls: this.goodsInfo.pics2 // 预览图片地址。数组形式
         } )
+      },
+      leftBottom( e ) { // 左侧按钮组的点击事件
+        if ( e.content.text === '店铺' ) {
+          uni.switchTab( {
+            url: '/pages/home/home'
+          } )
+        } else if ( e.content.text === '购物车' ) {
+          uni.switchTab( {
+            url: '/pages/cart/cart'
+          } )
+        }
+      },
+      rightBottom( e ) { // 右侧按钮组的点击事件
+        if ( e.content.text === '加入购物车' ) {
+          this.addShopCart()
+        } else if ( e.content.text === '立即购买' ) {
+        }
       }
     }
   }
@@ -134,6 +180,14 @@
         width: 100%;
         vertical-align: bottom; // 解决图片空白间隙的问题
       }
+    }
+    
+    // 商品导航
+    .uni-goods-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
     }
   }
 </style>

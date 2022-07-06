@@ -36,12 +36,13 @@
         }
         
         this.$store.commit( 'user/setToken', result.data.data.token )
+        this.$store.dispatch( 'user/getShopCartInfo' )
+        console.log( this.$store.state.user.shopCartInfo )
       },
       async register() { // 注册用户
         uni.getUserProfile( { // 获取当前微信的用户信息
           desc: '你的授权信息',
           success: async userInfo => {
-            console.log( userInfo )
             const [err, res] = await uni.login().catch( err => err ) //  临时凭证 code
             register( Object.assign( userInfo, { code: res.code } ) ) // 调用注册用户的接口
           },

@@ -1,6 +1,7 @@
 // 商城模块
 
 import request from '@/utils/request.js'
+import store from '@/store/store.js'
 
 export function getGoodsCategory() { // 获取 商品类别
   return request.get('/shop/goods/category/all')
@@ -12,4 +13,12 @@ export function getAllGoodsList(data) { // 获取 商品列表
 
 export function getGoodsInfo(ID) { // 获取 商品信息
   return request.get('/shop/goods/detail?id=' + ID)
+}
+
+export function getShopCartInfo() { // 获取 购物车商品信息
+  return request.get(`/shopping-cart/info?token=${store.state.user.token}`)
+}
+
+export function addShopCart(data) { // 加入购物车
+  return request.post('/shopping-cart/add', data)
 }

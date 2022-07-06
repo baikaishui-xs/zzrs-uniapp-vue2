@@ -2,10 +2,30 @@ import {
   $http
 } from '@escook/request-miniprogram'
 
+import store from '@/store/store.js'
+
 $http.baseUrl = 'https://api.it120.cc/zcr' // 请求根路径
 
 $http.beforeRequest = function(request) { // 请求拦截器
-  request.header['content-type'] = 'application/x-www-form-urlencoded',
+  if (request.method === 'POST') { // 为 post 请求添加 token 参数
+    if (!request.data) {
+      request.data = {
+        token: store.state.user.token
+      }
+    } else {
+      request.data.token = store.state.user.token
+    }
+  }
+
+  // if (request.method === 'GET') { // 为 get 请求添加 token 参数
+  //   request.url = request.url + '?token=' + store.state.user.token
+  // }
+  
+  if (request.method === 'GET') { // 为 get 请求添加 token 参数
+    // 在请求拦截器中添加 token 没什么思路，就暂时在每个 api 后面手动添加 token 了
+  }
+
+  request.header['content-type'] = 'application/x-www-form-urlencoded'
   uni.showLoading({ // 展示 loading 效果
     title: '数据加载中...'
   })
