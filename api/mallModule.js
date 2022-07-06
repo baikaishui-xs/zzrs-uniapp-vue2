@@ -22,3 +22,7 @@ export function getShopCartInfo() { // 获取 购物车商品信息
 export function addShopCart(data) { // 加入购物车
   return request.post('/shopping-cart/add', data)
 }
+
+export function delShopCartGoods(params) { // 删除购物车商品
+  return request.post('/shopping-cart/remove', params)
+}

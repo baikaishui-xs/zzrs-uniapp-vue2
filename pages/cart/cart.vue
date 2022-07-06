@@ -6,7 +6,7 @@
     </view>
     
     <!-- 商品列表 区 -->
-    <view class="goodsList">
+    <!-- <view class="goodsList">
       <view class="item" v-for="item in goodsList" :key="item.goodsId">
         <view class="active-box">
           <view class="active"></view>
@@ -19,19 +19,60 @@
           <uni-number-box class="number" :min="1" :value="item.number"></uni-number-box>
         </view>
       </view>
-    </view>
+    </view> -->
+    
+    <uni-swipe-action class="goodsList">
+       <block v-for="item in goodsList" :key="item.goodsId">
+        <uni-swipe-action-item :right-options="options" @click="slidingDel(item.key)">
+          <view class="item">
+            <view class="active-box">
+              <view class="active"></view>
+            </view>
+            <image class="img" :src="item.pic" />
+            <view class="goods-info-box">
+              <view class="name">{{item.name}}</view>
+              <view class="price">￥{{item.price}}</view>
+              <text class="sold">已售 0 件</text>
+              <uni-number-box class="number" :min="1" :value="item.number"></uni-number-box>
+            </view>
+          </view>
+        </uni-swipe-action-item>
+      </block>
+    </uni-swipe-action>
   </view>
 </template>
 
 <script>
+  import { getShopCartInfo, delShopCartGoods } from '@/api/mallModule.js'
+  
   export default {
     onLoad() {
-      console.log( this.$store.state.user.shopCartInfo )
+      this.getShopCartInfo()
     },
     data() {
       return {
-        goodsList: this.$store.state.user.shopCartInfo.items // 商品列表
+        goodsList: [], // 商品列表
+        options: [{
+          // 文本内容
+          text: '删除',
+          style: {
+            backgroundColor: '#C00000' // 按钮的背景颜色
+          }
+        }]
       };
+    },
+    methods: {
+      async getShopCartInfo() { // 获取 购物车信息
+        const result = await getShopCartInfo()
+        this.goodsList = result.data.data.items
+      },
+      async delShopCartGoods( key ) { // 删除购物车商品
+        await delShopCartGoods( { key } )
+      },
+      slidingDel( key ) { // 滑动删除
+        this.delShopCartGoods( key )
+        this.getShopCartInfo()
+      }
     }
   }
 </script>
@@ -57,7 +98,7 @@
     // 商品列表 区
     .goodsList {
       .item {
-        display: flex;
+        display: flex;  
         padding: 10px;
         position: relative;
         background: #fff;
