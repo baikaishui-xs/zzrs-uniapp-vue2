@@ -3,7 +3,7 @@
     <!-- 轮播图 -->
     <swiper class="swiper" indicator-active-color="#fff" :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
       <swiper-item v-for="(item, i) in goodsInfo.pics2" :key="i">
-        <image :src="item" />
+        <image :src="item"  @click="preview(i)"/>
       </swiper-item>
     </swiper>
     
@@ -45,6 +45,12 @@
       async getGoodsInfo() { // 获取 商品信息
         const result = await getGoodsInfo( this.id )
         this.goodsInfo = result.data.data
+      },
+      preview( i ) { // 轮播图预览
+        uni.previewImage( {
+          current: i, // 预览时，默认显示的图片索引
+          urls: this.goodsInfo.pics2 // 预览图片地址。数组形式
+        } )
       }
     }
   }
