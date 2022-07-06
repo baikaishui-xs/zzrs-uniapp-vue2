@@ -26,3 +26,11 @@ export function addShopCart(data) { // 加入购物车
 export function delShopCartGoods(params) { // 删除购物车商品
   return request.post('/shopping-cart/remove', params)
 }
+
+export function modifySelected(data) { // 修改 购物车选中状态
+  return request.post('/shopping-cart/select', data)
+}
+
+export function modifyNumber(data) { // 购物车修改购买数量
+  return request.post('/shopping-cart/modifyNumber', data)
+}
