@@ -25,6 +25,9 @@
         </view>
       </view>
     </view>
+  
+    <!-- 详情页 区 -->
+    <rich-text class="details-pages-area" :nodes="goodsInfo.content"></rich-text>
   </view>
 </template>
 
@@ -123,6 +126,14 @@
       }
       
       
+    }
+  
+    // 详情页 区
+    .details-pages-area {
+      .wscnph {
+        width: 100%;
+        vertical-align: bottom; // 解决图片空白间隙的问题
+      }
     }
   }
 </style>
