@@ -1,9 +1,7 @@
 <template>
   <view class="cart-container">
     <!-- 收货地址 区 -->
-    <view class="address-area">
-      <button class="address-btn">请选择收货地址+</button>
-    </view>
+    <Address></Address>
     
     <!-- 商品列表 区 -->
     <uni-swipe-action class="goodsList">
@@ -39,7 +37,7 @@
 
 <script>
   import { getShopCartInfo, delShopCartGoods, modifySelected, modifyNumber } from '@/api/mallModule.js'
-  
+  import Address from './components/address/address'
   export default {
     onLoad() {
       this.getShopCartInfo()
@@ -102,6 +100,9 @@
       ifSelectAll(){ // 判断是否权限
         this.selectAll = this.goodsList.every( item => item.selected )
       }
+    },
+    components: {
+      Address
     }
   }
 </script>
@@ -109,21 +110,6 @@
 <style lang="scss">
   .cart-container {
     padding-bottom: 50px;
-    // 收货地址 区
-    .address-area {
-      height: 90px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-bottom: 1px solid #eee;
-      background: #fff;
-      .address-btn {
-        display: inline;
-        background: #19AD1A;
-        font-size: 14px;
-        color: #fff;
-      }
-    }
     
     // 商品列表 区
     .goodsList {

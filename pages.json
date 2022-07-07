@@ -25,7 +25,16 @@
       "navigationBarTitleText": "",
       "enablePullDownRefresh": false
     }
-  }],
+  }    ,{
+            "path" : "pages/cart/components/address/address",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
   "tabBar": {
     "list": [{
       "pagePath": "pages/home/home", // 点击跳转的页面路径
